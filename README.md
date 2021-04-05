@@ -3,6 +3,7 @@ This project is a follow-up to [an earlier project](https://gitlab.com/offor20/d
 * s3://udacity-dend/song_data
 * s3://udacity-dend/log_data
 <p>In the project, Extraction, Loading and Transformation (ELT) data pipeline is built. First and foremost, spark is used to read data from the aforementioned two urls. Data is extracted to realise five tables, namely: </p>
+
 * **songplays_table (a Fact-Table)**- a table computed from the log records where page = NextSong. These are songs that can be played. The table has the following fields: 
     * songplay_id of IntegerType
     * start_time of DoubleType
@@ -46,9 +47,9 @@ The diagram below illustrates the star schema represented by the five tables abo
 ![star schema](/images/star_schema.png)
 
 ## Getting Started with the Project
-The following instructions describe what are needed to run or implement the codes implemented in the project.
+The following instructions describe what are needed to run or implement the codes implemented in the project. The project is implemented on the cloud but with a smaller datasets, it can also be implemented locally.
 ### Prerequisites
-The following software packages and account are needed to have the project up and running for both testing and development purposes:
+The following software packages and account are needed to have the project up and running for both testing and development purposes in local machine if so desired:
 * Python 3
 * Apache Spark
 * Pyspark
