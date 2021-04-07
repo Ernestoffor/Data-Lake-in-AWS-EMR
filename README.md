@@ -2,8 +2,11 @@
 This project is a follow-up to [an earlier project](https://gitlab.com/offor20/data_modeling_with_postgreSQL). The music streaming company has grown its users base and decided to migrate the company's data to data lake in AWS EMR cluster. Their datasets reside in two directories inside an AWS s3 bucket. The directories are : 
 * s3://udacity-dend/song_data
 * s3://udacity-dend/log_data
-<p>In the project, Extraction, Loading and Transformation (ELT) data pipeline is built. First and foremost, spark is used to read data from the aforementioned two urls. Data is extracted to realise five tables, namely: </p>
+<p>In the project, Extraction, Loading and Transformation (ELT) data pipeline is built. First and foremost, spark is used to read data from the aforementioned two urls. The loaded data is then processed in the EMR cluster using spark. Subsequently, the results are saved back to S3 storage in parquet format. The result can either be queried directly from the EMR cluster or the S3 storage in Business Intelligence (BI) and analytic apps. The architectural design of the project is as shown in the diagram below. Emphasis of this project is on the green region.  </p>
 
+![EMR Cluster Architecture](/images/architecture.png)
+
+Data is processed and extracted to realise five tables, namely:
 * **songplays_table (a Fact-Table)**- a table computed from the log records where page = NextSong. These are songs that can be played. The table has the following fields: 
     * songplay_id of IntegerType
     * start_time of DoubleType
