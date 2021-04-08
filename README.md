@@ -6,7 +6,7 @@ This project is a follow-up to [an earlier project](https://gitlab.com/offor20/d
 
 ![EMR Cluster Architecture](/images/architecture.png)
 
-Data is processed and extracted to realise five tables, namely:
+Data is processed and extracted to realise five tables in a star schema, namely:
 * **songplays_table (a Fact-Table)**- a table computed from the log records where page = NextSong. These are songs that can be played. The table has the following fields: 
     * songplay_id of IntegerType
     * start_time of DoubleType
@@ -50,7 +50,7 @@ The diagram below illustrates the star schema represented by the five tables abo
 ![star schema](/images/star_schema.png)
 
 ## Getting Started with the Project
-The following instructions describe what are needed to run or implement the codes implemented in the project. The project is implemented on the cloud but with a smaller datasets, it can also be implemented locally.
+The following instructions describe what are needed to run or implement the codes implemented in the project. The project is implemented on the cloud but with a smaller datasets or very high CPU core, it can also be implemented locally. This implies that setting up an AWS Elastic Map Reduce (EMR) cluster is sufficient to run the codes and query the data. However, local installation guidelines and EMR cluster set up are given below.
 ### Prerequisites
 The following software packages and account are needed to have the project up and running for both testing and development purposes in local machine if so desired:
 * Python 3
@@ -76,5 +76,17 @@ pip install pyspark
 The diagram below demonstrated how to set up an EMR Cluster to run and test the project.
 ![EMR Cluster set up](/images/configuring-emr-cluster.png)
 
+### Create Notebook.
+In order to run spark in the EMR cluster created above, a notebook needs to be created and configured in the cluster. In EMR cluster dashboard, select "Notebook" on the left menu list and click <font color="red">Create Notebook"</font>. [Udacity](https://classroom.udacity.com/nanodegrees/nd027/parts/19ef4e55-151f-4510-8b5c-cb590ac52df2/modules/f268ecf3-99fa-4f44-8587-dfa0945b8a7f/lessons/1f8f1b41-f5aa-4276-93f7-ec4916a74ed5/concepts/eac5c2be-645d-4d58-b7ac-a2dc02268e7e) provides a template for configuring the Notebook as shown in the diagram below. You are free to choose Notebook Name of your choice. 
+![Configure Notebook](/images/configure-notebook.png)
 
+<p>Wait for the notebook status to be <font color="green">Ready</font> before proceeding with running the code and querying the data.</p>
 
+## Running the code
+Copy the the etl.ipynb file into the notebook.Starting from the first cell, click the Run/play button on the top toolbar to run every cell. Additional queries can be created to test the code.
+
+## Authors
+Ernest Offor Ugwoke -previous work [Data Modeling](https://gitlab.com/offor20/data_modeling_with_postgreSQL)
+
+## Acknowledgement
+The author acknowledges the [Udacity Data Engineering Team](www.udacity.com) who supervised and guided the implementation of this project.  
