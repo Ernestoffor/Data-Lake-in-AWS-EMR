@@ -77,16 +77,46 @@ The diagram below demonstrated how to set up an EMR Cluster to run and test the 
 ![EMR Cluster set up](/images/configuring-emr-cluster.png)
 
 ### Create Notebook.
-In order to run spark in the EMR cluster created above, a notebook needs to be created and configured in the cluster. In EMR cluster dashboard, select "Notebook" on the left menu list and click <span style="color:red">Create Notebook"</span>. [Udacity](https://classroom.udacity.com/nanodegrees/nd027/parts/19ef4e55-151f-4510-8b5c-cb590ac52df2/modules/f268ecf3-99fa-4f44-8587-dfa0945b8a7f/lessons/1f8f1b41-f5aa-4276-93f7-ec4916a74ed5/concepts/eac5c2be-645d-4d58-b7ac-a2dc02268e7e) provides a template for configuring the Notebook as shown in the diagram below. You are free to choose Notebook Name of your choice. 
+In order to run spark in the EMR cluster created above, a notebook needs to be created and configured in the cluster. In EMR cluster dashboard, select "Notebook" on the left menu list and click <span style="color:red">"Create Notebook"</span>. [Udacity](https://classroom.udacity.com/nanodegrees/nd027/parts/19ef4e55-151f-4510-8b5c-cb590ac52df2/modules/f268ecf3-99fa-4f44-8587-dfa0945b8a7f/lessons/1f8f1b41-f5aa-4276-93f7-ec4916a74ed5/concepts/eac5c2be-645d-4d58-b7ac-a2dc02268e7e) provides a template for configuring the Notebook as shown in the diagram below. However, you are free to choose Notebook Name of your choice. 
 ![Configure Notebook](/images/configure-notebook.png)
 
 <p>Wait for the notebook status to be <span style="color: green">Ready</span> before proceeding with running the code and querying the data.</p>
 
+## Implementation Steps
+* Two similar python scripts or files namely: etl.ipynb and etl.py were created for development and deployment(production) respectively.
+* In the scripts, three functions are used to process the song and log datasets. Here, all the necessary extraction, loading and transformations are carried out. See the functions' docStrings for more details.
+* The datasets domiciled in Amazon S3 bucket directories are first read into song_data and log_data dataframes in the cluster, five tables are extracted from them and loaded back to another S3 bucket directories in Parquet format. Parquet format is highly compact, efficient and perfomant for data retrieval and analysis. The tables can be queried directly from the S3 storage. The song_data dataset was read using our own-defined schema called songSchema for conformance purposes in data types. 
+* The process_song_data function:  Function to read song_data dataset, extract song_table and artists_table from it and save them in parquet format
+    INPUTS/ARGUMENTS:
+        * spark: spark session/context
+        * input_data: defines an S3 bucket directory storing the dataset
+        * output_data: defines an S3 bucket for saving the extracted data/tables in parquet format
+    RETURNS:
+        * song_data dataframe to be used in another function  
+* The process_log_data function:  Procedure to read log_data dataset in S3, extracts users_table, time_table and save them in parquet format.
+    It also processes the log_data and song_data datasets to create songplays_table and writes it in parquet format save to 
+    to an S3 directory.
+    INPUTS/ARGUMENTS:
+        * spark: spark session/context
+        * input_data: defines an S3 bucket directory storing the dataset
+        * output_data: defines an S3 bucket for saving the extracted data/tables in parquet format
+        * process_song_data: a function that returns song_data dataframe previously defined above
+    RETURNS:
+        * None   
+* The main function: A procedure that defines arguments/inputs in the other two functions and performs the actual ELT.
+    *  RETURNS:
+        * None
+
+
 ## Running the code
-Copy the the etl.ipynb file into the notebook.Starting from the first cell, click the Run/play button on the top toolbar to run every cell. Additional queries can be created to test the code.
+Copy the the etl.ipynb file into the notebook.Starting from the first cell, click the Run/play button on the top toolbar to run every cell. Additional queries can be created to test the code. Also, etl.py is to be run in a terminal using SSH connection to the cluster by typing:
+```
+python3 etl.py 
+```
+and hiting the enter button.
 
 ## Authors
 Ernest Offor Ugwoke -previous work [Data Modeling](https://gitlab.com/offor20/data_modeling_with_postgreSQL)
 
 ## Acknowledgement
-The author acknowledges the [Udacity Data Engineering Team](www.udacity.com) who supervised and guided the implementation of this project.  
+The author acknowledges the [Udacity Data Engineering Team](www.udacity.com) who supervised and guided the implementation of the project.  
