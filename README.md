@@ -94,14 +94,14 @@ In order to run spark in the EMR cluster created above, a notebook needs to be c
     RETURNS:
         * song_data dataframe to be used in another function  
 * The process_log_data function:  Procedure to read log_data dataset in S3, extracts users_table, time_table and save them in parquet format.
-    It also processes the log_data and song_data datasets to create songplays_table and writes it in parquet format save to 
-    to an S3 directory.
-    INPUTS/ARGUMENTS:
+    * It also processes the log_data and song_data datasets to create songplays_table, users_table, time_table and writes them in parquet format 
+    * The parquet files are finally saved to different S3 directories.
+    * INPUTS/ARGUMENTS:
         * spark: spark session/context
         * input_data: defines an S3 bucket directory storing the dataset
         * output_data: defines an S3 bucket for saving the extracted data/tables in parquet format
-        * process_song_data: a function that returns song_data dataframe previously defined above
-    RETURNS:
+* The process_song_data: a function that returns song_data dataframe previously defined above
+    * RETURNS:
         * None   
 * The main function: A procedure that defines arguments/inputs in the other two functions and performs the actual ELT.
     *  RETURNS:
